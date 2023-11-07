@@ -18,11 +18,17 @@ export default function EditInvoiceForm({
   invoice: InvoiceForm;
   customers: CustomerField[];
 }) {
+  const initialState = { message: null, errors: {} };
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+  const [state, dispatch] = useFormState(updateInvoiceWithId, initialState);
+
   return (
     // Passing an id as argument won't work
     // <form action={updateInvoice(id)}></form>
-    <form action={updateInvoiceWithId}>
+    <form 
+      // action={updateInvoiceWithId}
+      action={dispatch}
+    >
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Invoice ID */}
         <input type="hidden" name="id" value={invoice.id} />
